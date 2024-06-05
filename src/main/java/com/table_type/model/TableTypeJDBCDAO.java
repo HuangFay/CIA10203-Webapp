@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 
 
@@ -38,8 +41,8 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 				pstmt = con.prepareStatement(INSERT_STMT);
 			
 				pstmt.setInt(1, tabletypeVO.getTableType());
-				pstmt.setInt(1, tabletypeVO.getTableTypeNumber());
-				
+				pstmt.setInt(2, tabletypeVO.getTableTypeNumber());
+				pstmt.executeUpdate();
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException("Couldn't load database driver. "
 						+ e.getMessage());
@@ -78,7 +81,7 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 				pstmt = con.prepareStatement(UPDATE);
 			
 				pstmt.setInt(1, tabletypeVO.getTableType());
-				pstmt.setInt(1, tabletypeVO.getTableTypeNumber());
+				pstmt.setInt(2, tabletypeVO.getTableTypeNumber());
 				
 				pstmt.executeUpdate();
 			} catch (ClassNotFoundException e) {
@@ -108,13 +111,107 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 		}
 		@Override
 		public void delete(Integer tableId) {
-			// TODO Auto-generated method stub
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(DELETE);
+
+				pstmt.setInt(1, tableId);
+
+				pstmt.executeUpdate();
+
+				// Handle any driver errors
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+
+			
 			
 		}
 		@Override
 		public TableTypeVO findByPrimaryKey(Integer tableId) {
-			// TODO Auto-generated method stub
-			return null;
+			TableTypeVO tableVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ONE_STMT);
+
+				pstmt.setInt(1, tableId);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// empVo 也稱為 Domain objects
+					tableVO = new TableTypeVO();
+					tableVO.setTableId(rs.getInt("tableId"));
+					tableVO.setTableType(rs.getInt("tableType"));
+					tableVO.setTableTypeNumber(rs.getInt("tableTypeNumber"));
+					
+				}
+
+				// Handle any driver errors
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return tableVO;
 		}
 		@Override
 		public List<TableTypeVO> getAll() {
@@ -177,7 +274,28 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 			TableTypeJDBCDAO dao = new TableTypeJDBCDAO();
 			
 			
-			List<TableTypeVO> list = dao.getAll();
+			
+//新增
+			
+//			TableTypeVO tableVO = new TableTypeVO();
+//			
+//			tableVO.setTableType(8);
+//			tableVO.setTableTypeNumber(4);
+//			dao.insert(tableVO);
+			
+//修改
+//			TableTypeVO tableVO2 = new TableTypeVO();
+//			tableVO2.setTableId(1);
+//			tableVO2.setTableType(5);
+//			tableVO2.setTableTypeNumber(2);
+//			dao.update(tableVO2);
+			
+//刪除
+//			dao.delete(3);
+			
+			
+//查詢
+List<TableTypeVO> list = dao.getAll();
 			
 			for (TableTypeVO aEmp : list) {
 				System.out.print(aEmp.getTableId() + ",");
@@ -185,6 +303,8 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 				System.out.print(aEmp.getTableTypeNumber() + ",");
 				
 			}
+			
+		
 		}
 
 
