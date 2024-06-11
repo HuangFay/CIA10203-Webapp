@@ -29,7 +29,7 @@ public class TableTypeJNDIDAO implements TableTypeDAO_interface{
 		private static final String DELETE = 
 			"DELETE FROM table_type where table_id = ?";
 		private static final String UPDATE = 
-			"UPDATE table_type set table_type=?, table_type_number=?";
+			"UPDATE table_type set table_type=?, table_type_number=? where table_id = ?";
 		@Override
 		public void insert(TableTypeVO tabletypeVO) {
 			Connection con = null;
@@ -75,6 +75,8 @@ public class TableTypeJNDIDAO implements TableTypeDAO_interface{
 			
 				pstmt.setInt(1, tabletypeVO.getTableType());
 				pstmt.setInt(2, tabletypeVO.getTableTypeNumber());
+				pstmt.setInt(3, tabletypeVO.getTableId());
+				
 				
 				pstmt.executeUpdate();
 			} catch (SQLException se) {

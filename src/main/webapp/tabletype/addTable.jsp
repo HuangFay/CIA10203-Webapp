@@ -3,14 +3,14 @@
 <%@ page import="com.tabletype.model.*"%>
 
 <% //見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
-   TableTypeVO empVO = (TableTypeVO) request.getAttribute("empVO");
+   TableTypeVO tableTypeVO = (TableTypeVO) request.getAttribute("tableTypeVO");
 %>
---<%= empVO==null %>-- --${empVO.deptno }-- <!--  line100 -->
+--<%= tableTypeVO==null %>-- --${tableTypeVO.tableTypeNumber }-- <!--  line100 -->
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>桌型新增 - addEmp.jsp</title>
+<title>桌型新增 - addTableType.jsp</title>
 
 <style>
   table#table-1 {
@@ -66,21 +66,24 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="emp.do" name="form1">
+<FORM METHOD="post" ACTION="tabletype.do" name="form1">
 <table>
 	
 	
+	<tr>
+		<td>桌型人數</td>
+		<td><input type="TEXT" name="tabletype" value="<%= (tableTypeVO==null)? "" : tableTypeVO.getTableType()%>" size="45"/></td>
+	</tr>
+	<tr>
+		<td>桌型數量</td>
+		<td><input type="TEXT" name="tabletypenumber"   value="<%= (tableTypeVO==null)? "" : tableTypeVO.getTableTypeNumber()%>" size="45"/></td>
+	</tr>
+	<tr>
+		
 	
 	
 
-<%-- 		<td>部門:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="deptno">
-			<c:forEach var="deptVO" items="${deptSvc.all}">
-				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}
-				<!-- EL三元運算子 -->
-			</c:forEach>
-		</select></td>
-	</tr> --%>
+
 
 </table>
 <br>
@@ -97,7 +100,7 @@
         
         
    
-        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
+        <!-- // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
 
         //      1.以下為某一天之前的日期無法選擇
         //      var somedate1 = new Date('2017-06-15');
@@ -143,7 +146,7 @@
         //                   return [false, ""]
         //              }
         //              return [true, ""];
-        //      }});
+        //      }}); -->
         
 </script>
 </html>

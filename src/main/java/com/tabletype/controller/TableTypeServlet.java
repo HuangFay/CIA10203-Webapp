@@ -1,15 +1,12 @@
 package com.tabletype.controller;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.*;
+
+import javax.servlet.http.*;
 import com.tabletype.model.*;
 
 
@@ -113,8 +110,8 @@ public class TableTypeServlet extends HttpServlet{
 		
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer tableId = Integer.valueOf(req.getParameter("tableId").trim());
-				Integer tableType = Integer.valueOf(req.getParameter("tableType").trim());
-				Integer tableTypeNumber = Integer.valueOf(req.getParameter("tableTypeNumber").trim());
+				Integer tableType = Integer.valueOf(req.getParameter("tabletype").trim());
+				Integer tableTypeNumber = Integer.valueOf(req.getParameter("tabletypenumber").trim());
 				
 				
 				
@@ -156,8 +153,22 @@ req.setAttribute("tableTypeVO", tableVO); // 含有輸入格式錯誤的empVO物件,也存入r
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 		
 				// Send the use back to the form, if there were errors
-				Integer tableType = Integer.valueOf(req.getParameter("tableType").trim());
-				Integer tableTypeNumber = Integer.valueOf(req.getParameter("tableTypeNumber").trim());
+				Integer tableType = null;
+				
+				try {
+					tableType = Integer.valueOf(req.getParameter("tabletype").trim());
+				} catch (NumberFormatException e) {
+					
+					errorMsgs.add("人數請填數字.");
+				}
+				Integer tableTypeNumber =null;
+				try {
+					tableTypeNumber = Integer.valueOf(req.getParameter("tabletypenumber").trim());
+				} catch (NumberFormatException e) {
+					
+					errorMsgs.add("數量請填數字.");
+				}
+				
 				
 				
 				
@@ -176,7 +187,7 @@ req.setAttribute("tableTypeVO", tableVO); // 含有輸入格式錯誤的empVO物件,也存入r
 				if (!errorMsgs.isEmpty()) {
 req.setAttribute("tableTypeVO", tableVO); // 含有輸入格式錯誤的empVO物件,也存入req 埋伏二號
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/tabletype/addEmp.jsp");
+							.getRequestDispatcher("/tabletype/addTable.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -186,7 +197,7 @@ req.setAttribute("tableTypeVO", tableVO); // 含有輸入格式錯誤的empVO物件,也存入r
 				tableVO = tableSvc.addTableType(tableType,tableTypeNumber);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/tabletype/listAllEmp.jsp";
+				String url = "/tabletype/listAllTableType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 		}

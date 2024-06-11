@@ -13,7 +13,8 @@ public class TableTypeService {
 		TableTypeVO tableTypeVO = new TableTypeVO();
 		
 		tableTypeVO.setTableType(tableType);
-		tableTypeVO.setTableId(tableTypeNumber);
+		tableTypeVO.setTableTypeNumber(tableTypeNumber);
+		dao.insert(tableTypeVO);
 		
 		return tableTypeVO;
 	}

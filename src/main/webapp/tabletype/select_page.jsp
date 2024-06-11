@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <html>
 <head>
 <title>MorningCode: Home</title>
@@ -75,25 +75,14 @@
     </FORM>
   </li>
   
-  <li>
-     <FORM METHOD="post" ACTION="emp.do" >
-       <b>選擇桌子人數:</b>
-       <select size="1" name="empno">
-         <c:forEach var="tabkeTypeVO" items="${tableSvc.all}" > 
-          <option value="${tableVO.empno}">${tabltypeVO.tableType}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
-     </FORM>
-  </li>
+  
 </ul>
 
 
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addEmp.jsp'>Add</a> a new Emp.</li>
+  <li><a href='addTable.jsp'>Add</a> a new Emp.</li>
 </ul>
 
 </body>
