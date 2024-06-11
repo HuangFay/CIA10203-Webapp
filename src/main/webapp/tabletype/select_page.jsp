@@ -66,8 +66,8 @@
      <FORM METHOD="post" ACTION="tabletype.do" >
        <b>選擇桌型人數:</b>
        <select size="1" name="tableId">
-         <c:forEach var="tableTypeVO" items="${tableSvc.all}" > 
-          <option value="${tableTypeVO.tableId}">${tableTypeVO.tableId}
+         <c:forEach var="tableVO" items="${tableSvc.all}" > 
+          <option value="${tableVO.tableId}">${tableVO.tableId}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">

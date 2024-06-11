@@ -211,14 +211,14 @@ req.setAttribute("tableTypeVO", tableVO); // 含有輸入格式錯誤的empVO物件,也存入r
 			req.setAttribute("errorMsgs", errorMsgs);
 	
 				/***************************1.接收請求參數***************************************/
-				Integer tableType = Integer.valueOf(req.getParameter("tableType"));
+				Integer tableId = Integer.valueOf(req.getParameter("tableId"));
 				
 				/***************************2.開始刪除資料***************************************/
 				TableTypeService tableSvc = new TableTypeService();
-				tableSvc.deleteTableType(tableType);
+				tableSvc.deleteTableType(tableId);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/tabletype/listAllEmp.jsp";
+				String url = "/tabletype/listAllTableType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}
