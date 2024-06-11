@@ -1,13 +1,12 @@
-package com.table_type.model;
+package com.tabletype.model;
 
 import java.util.List;
-import java.util.Map;
 
 public class TableTypeService {
 	private TableTypeDAO_interface dao;
 	
 	public TableTypeService() {
-		dao = new TableTypeDAO();
+		dao = new TableTypeJNDIDAO();
 	}
 	public TableTypeVO addTableType( Integer tableType,Integer tableTypeNumber) {
 		

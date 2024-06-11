@@ -1,4 +1,4 @@
-package com.table_type.model;
+package com.tabletype.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,23 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 
-public class TableTypeDAO implements TableTypeDAO_interface{
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/morningcode");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+
+
+
+
+public class TableTypeJDBCDAO implements TableTypeDAO_interface{
+	String driver = "com.mysql.cj.jdbc.Driver";
+	String url = "jdbc:mysql://localhost:3306/morningcode?serverTimezone=Asia/Taipei";
+	String userid = "root";
+	String passwd = "22837480";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO table_type (table_type,table_type_number) VALUES (?, ?)";
@@ -41,13 +35,19 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 			PreparedStatement pstmt = null;
 
 			try {
-				con = ds.getConnection();
+				Class.forName(driver);
+				
+				con = DriverManager.getConnection(url, userid,passwd);
 				pstmt = con.prepareStatement(INSERT_STMT);
 			
 				pstmt.setInt(1, tabletypeVO.getTableType());
 				pstmt.setInt(2, tabletypeVO.getTableTypeNumber());
 				pstmt.executeUpdate();
-			} catch (SQLException se) {
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+			
+			}catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				
@@ -75,14 +75,20 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 			PreparedStatement pstmt = null;
 
 			try {
-				con = ds.getConnection();
+				Class.forName(driver);
+				
+				con = DriverManager.getConnection(url, userid,passwd);
 				pstmt = con.prepareStatement(UPDATE);
 			
 				pstmt.setInt(1, tabletypeVO.getTableType());
 				pstmt.setInt(2, tabletypeVO.getTableTypeNumber());
 				
 				pstmt.executeUpdate();
-			} catch (SQLException se) {
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+			
+			}catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				
@@ -110,7 +116,8 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 
 			try {
 
-				con = ds.getConnection();
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
 				pstmt = con.prepareStatement(DELETE);
 
 				pstmt.setInt(1, tableId);
@@ -118,7 +125,10 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 				pstmt.executeUpdate();
 
 				// Handle any driver errors
-			
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -152,7 +162,9 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 
 			try {
 
-				con = ds.getConnection();
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ONE_STMT);
 
 				pstmt.setInt(1, tableId);
 
@@ -161,13 +173,17 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 				while (rs.next()) {
 					// empVo 也稱為 Domain objects
 					tableVO = new TableTypeVO();
-					tableVO.setTableId(rs.getInt("tableId"));
-					tableVO.setTableType(rs.getInt("tableType"));
-					tableVO.setTableTypeNumber(rs.getInt("tableTypeNumber"));
+					tableVO.setTableId(rs.getInt("table_id"));
+					tableVO.setTableType(rs.getInt("table_type"));
+					tableVO.setTableTypeNumber(rs.getInt("table_type_number"));
 					
 				}
 
 				// Handle any driver errors
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -207,7 +223,9 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 			ResultSet rs = null;
 			
 			try {
-				con = ds.getConnection();
+				Class.forName(driver);
+				
+				con = DriverManager.getConnection(url, userid,passwd);
 				pstmt = con.prepareStatement(GET_ALL_STMT);
 				rs = pstmt.executeQuery();
 				
@@ -219,6 +237,10 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 					list.add(tabletypeVO);
 				}
 				
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+			
 			}catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -281,14 +303,13 @@ public class TableTypeDAO implements TableTypeDAO_interface{
 //				System.out.print(aEmp.getTableTypeNumber() + ",");
 //				
 //			}
+//			
+//		
 			
-		
+//			TableTypeVO tableVO = dao.findByPrimaryKey(1);
+//			System.out.println(tableVO.getTableId());
 		}
-	
-		
 
 
 
 }
-
-

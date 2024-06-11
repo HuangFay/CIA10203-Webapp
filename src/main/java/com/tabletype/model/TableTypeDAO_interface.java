@@ -1,4 +1,4 @@
-package com.table_type.model;
+package com.tabletype.model;
 
 import java.util.*;
 

@@ -1,23 +1,24 @@
-package com.table_type.model;
+package com.tabletype.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
 
+import java.util.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-
-
-
-public class TableTypeJDBCDAO implements TableTypeDAO_interface{
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/morningcode?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "22837480";
+public class TableTypeJNDIDAO implements TableTypeDAO_interface{
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO table_type (table_type,table_type_number) VALUES (?, ?)";
@@ -35,19 +36,13 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 			PreparedStatement pstmt = null;
 
 			try {
-				Class.forName(driver);
-				
-				con = DriverManager.getConnection(url, userid,passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(INSERT_STMT);
 			
 				pstmt.setInt(1, tabletypeVO.getTableType());
 				pstmt.setInt(2, tabletypeVO.getTableTypeNumber());
 				pstmt.executeUpdate();
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-			
-			}catch (SQLException se) {
+			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				
@@ -75,20 +70,14 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 			PreparedStatement pstmt = null;
 
 			try {
-				Class.forName(driver);
-				
-				con = DriverManager.getConnection(url, userid,passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE);
 			
 				pstmt.setInt(1, tabletypeVO.getTableType());
 				pstmt.setInt(2, tabletypeVO.getTableTypeNumber());
 				
 				pstmt.executeUpdate();
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-			
-			}catch (SQLException se) {
+			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				
@@ -116,8 +105,7 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 
 			try {
 
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(DELETE);
 
 				pstmt.setInt(1, tableId);
@@ -125,10 +113,7 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 				pstmt.executeUpdate();
 
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
+			
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -162,28 +147,24 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 
 			try {
 
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_STMT);
+
 
 				pstmt.setInt(1, tableId);
 
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					// empVo 也稱為 Domain objects
+					
 					tableVO = new TableTypeVO();
-					tableVO.setTableId(rs.getInt("tableId"));
-					tableVO.setTableType(rs.getInt("tableType"));
-					tableVO.setTableTypeNumber(rs.getInt("tableTypeNumber"));
+					tableVO.setTableId(rs.getInt("table_id"));
+					tableVO.setTableType(rs.getInt("table_type"));
+					tableVO.setTableTypeNumber(rs.getInt("table_type_number"));
 					
 				}
 
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -223,9 +204,7 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 			ResultSet rs = null;
 			
 			try {
-				Class.forName(driver);
-				
-				con = DriverManager.getConnection(url, userid,passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_STMT);
 				rs = pstmt.executeQuery();
 				
@@ -237,10 +216,6 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 					list.add(tabletypeVO);
 				}
 				
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-			
 			}catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -270,10 +245,10 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 			}
 			return list;
 		}
-		public static void main(String[] args) {
-			TableTypeJDBCDAO dao = new TableTypeJDBCDAO();
-			
-			
+//		public static void main(String[] args) {
+//			TableTypeJDBCDAO dao = new TableTypeJDBCDAO();
+//			
+//			
 			
 //新增
 			
@@ -295,18 +270,22 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 			
 			
 //查詢
-List<TableTypeVO> list = dao.getAll();
+//List<TableTypeVO> list = dao.getAll();
 			
-			for (TableTypeVO aEmp : list) {
-				System.out.print(aEmp.getTableId() + ",");
-				System.out.print(aEmp.getTableType() + ",");
-				System.out.print(aEmp.getTableTypeNumber() + ",");
-				
-			}
-			
+//			for (TableTypeVO aEmp : list) {
+//				System.out.print(aEmp.getTableId() + ",");
+//				System.out.print(aEmp.getTableType() + ",");
+//				System.out.print(aEmp.getTableTypeNumber() + ",");
+//				
+//			}
+//			
+//		
+//		}
+	
 		
-		}
 
 
 
 }
+
+
