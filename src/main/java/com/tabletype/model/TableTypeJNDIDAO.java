@@ -199,7 +199,7 @@ public class TableTypeJNDIDAO implements TableTypeDAO_interface{
 		@Override
 		public List<TableTypeVO> getAll() {
 			List<TableTypeVO> list = new ArrayList<TableTypeVO>();
-			TableTypeVO tabletypeVO = null;
+			TableTypeVO tableTypeVO = null;
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -211,11 +211,11 @@ public class TableTypeJNDIDAO implements TableTypeDAO_interface{
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()) {
-					tabletypeVO = new TableTypeVO();
-					tabletypeVO.setTableId(rs.getInt("table_id"));
-					tabletypeVO.setTableType(rs.getInt("table_type"));
-					tabletypeVO.setTableTypeNumber(rs.getInt("table_type_number"));
-					list.add(tabletypeVO);
+					tableTypeVO = new TableTypeVO();
+					tableTypeVO.setTableId(rs.getInt("table_id"));
+					tableTypeVO.setTableType(rs.getInt("table_type"));
+					tableTypeVO.setTableTypeNumber(rs.getInt("table_type_number"));
+					list.add(tableTypeVO);
 				}
 				
 			}catch (SQLException se) {

@@ -59,8 +59,8 @@ public class TableTypeServlet extends HttpServlet{
 				
 				/***************************2.開始查詢資料*****************************************/
 				TableTypeService tableSvc = new TableTypeService();
-				TableTypeVO tableVO = tableSvc.getOneTableType(tableId);
-				if (tableVO == null) {
+				TableTypeVO tableTypeVO = tableSvc.getOneTableType(tableId);
+				if (tableTypeVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
@@ -72,7 +72,7 @@ public class TableTypeServlet extends HttpServlet{
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("tableTypeVO", tableVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("tableTypeVO", tableTypeVO); // 資料庫取出的empVO物件,存入req
 				String url = "/tabletype/listOneTableType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
