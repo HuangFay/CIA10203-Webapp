@@ -90,8 +90,8 @@ public class TableTypeServlet extends HttpServlet{
 				Integer tableId = Integer.valueOf(req.getParameter("tableId"));
 				
 				/***************************2.開始查詢資料****************************************/
-				TableTypeService empSvc = new TableTypeService();
-				TableTypeVO tableVO = empSvc.getOneTableType(tableId);
+				TableTypeService tableSvc = new TableTypeService();
+				TableTypeVO tableVO = tableSvc.getOneTableType(tableId);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("tableVO", tableVO);         // 資料庫取出的empVO物件,存入req
@@ -110,9 +110,21 @@ public class TableTypeServlet extends HttpServlet{
 		
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer tableId = Integer.valueOf(req.getParameter("tableId").trim());
-				Integer tableType = Integer.valueOf(req.getParameter("tabletype").trim());
-				Integer tableTypeNumber = Integer.valueOf(req.getParameter("tabletypenumber").trim());
+				Integer tableType = null;
+				try {
+					tableType = Integer.valueOf(req.getParameter("tabletype").trim());
+				}catch (NumberFormatException e) {
+					tableType=0;
+					errorMsgs.add("請輸入桌型人數");
+				}
 				
+				Integer tableTypeNumber = null;
+				try {
+				tableTypeNumber =Integer.valueOf(req.getParameter("tabletypenumber").trim());
+				}catch (NumberFormatException e) {
+					tableTypeNumber=0;
+					errorMsgs.add("請輸入桌子張數");
+				}
 				
 				
 					
@@ -125,7 +137,7 @@ public class TableTypeServlet extends HttpServlet{
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-req.setAttribute("tableTypeVO", tableVO); // 含有輸入格式錯誤的empVO物件,也存入req
+req.setAttribute("tableVO", tableVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/tabletype/update_table_type_input.jsp");
 					failureView.forward(req, res);

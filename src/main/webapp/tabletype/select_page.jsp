@@ -38,7 +38,7 @@
 <h3>資料查詢:</h3>
 	
 <%-- 錯誤表列 --%>
-<%-- <c:if test="${not empty errorMsgs}">
+ <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
@@ -46,7 +46,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
- --%>
+
 <ul>
   <li><a href='listAllTableType.jsp'>List</a> all TableTypes.  <br><br></li>
   
@@ -61,13 +61,15 @@
   </li>
 
   <jsp:useBean id="tableSvc" scope="page" class="com.tabletype.model.TableTypeService" />
-   
+ 
   <li>
      <FORM METHOD="post" ACTION="tabletype.do" >
        <b>選擇桌型人數:</b>
        <select size="1" name="tableId">
-         <c:forEach var="tableTypeVO" items=" ${tableSvc.all} " > 
-          <option value="${tableTypeVO.tableId}">${tableTypeVO.tableId}
+         <c:forEach var="tableTypeVO" items="${tableSvc.all}" >
+         <option value="${tableTypeVO.tableId}">${tableTypeVO.tableType}
+<!--            <option value="123">123  -->
+          
          </c:forEach>
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -79,10 +81,10 @@
 </ul>
 
 
-<h3>員工管理</h3>
+<h3>桌型管理</h3>
 
 <ul>
-  <li><a href='addTable.jsp'>Add</a> a new Emp.</li>
+  <li><a href='addTable.jsp'>Add</a>新桌型</li>
 </ul>
 
 </body>
