@@ -70,7 +70,7 @@ public class TableTypeJDBCDAO implements TableTypeDAO_interface{
 		}
 		@Override
 		public void update(TableTypeVO tabletypeVO) {
-			// TODO Auto-generated method stub
+			
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
