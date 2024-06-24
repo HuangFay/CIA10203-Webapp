@@ -16,12 +16,12 @@ public class ReservationControlDAOHibernate  implements ReservationControlDAO_in
 		return factory.getCurrentSession();
 	}
 	@Override
-	public void insert(ReservationControlVO reservationControlVO) {
+	public void insert(ResVO reservationControlVO) {
 				getSession().save(reservationControlVO);
 	}
 
 	@Override
-	public void update(ReservationControlVO reservationControlVO) {
+	public void update(ResVO reservationControlVO) {
 		// TODO Auto-generated method stub
 			getSession().update(reservationControlVO);
 	}
@@ -33,17 +33,17 @@ public class ReservationControlDAOHibernate  implements ReservationControlDAO_in
 	}
 
 	@Override
-	public ReservationControlVO findByPrimaryKey(Integer reservationControlId) {
+	public ResVO findByPrimaryKey(Integer reservationControlId) {
 		// TODO Auto-generated method stub
-		return getSession().get(ReservationControlVO.class,reservationControlId);
+		return getSession().get(ResVO.class,reservationControlId);
 		 
 	}
 
 	@Override
-	public List<ReservationControlVO> getAll() {
+	public List<ResVO> getAll() {
 		// TODO Auto-generated method stub
 		
-		return  getSession().createQuery("from ReservationControlVO",ReservationControlVO.class).list();
+		return  getSession().createQuery("from ReservationControlVO",ResVO.class).list();
 	}
 
 }

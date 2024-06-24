@@ -2,7 +2,6 @@ package com.reservationcontrol.model;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,18 +11,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.tabletype.model.TableTypeVO;
+
 @Entity
 @Table(name = "reservation_control")
-public class ReservationControlVO implements java.io.Serializable {
+public class ResVO implements java.io.Serializable {
 	
+	public TableTypeVO getTableTypeVO() {
+		return tableTypeVO;
+	}
+	public void setTableTypeVO(TableTypeVO tableTypeVO) {
+		this.tableTypeVO = tableTypeVO;
+	}
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="reservation_control_id", updatable = false, insertable = false)
 	private Integer reservationControlId;
-	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
-	@JoinColumn(name="table_type")
-	private Integer tableId;
+	
+	@ManyToOne
+	@JoinColumn(name="table_id")
+	private TableTypeVO tableTypeVO;
 	@Column(name="reservation_control_date")
+//	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private Date reasrvationControlDate;
 	@Column(name="reservation_control_table")
 	private String reasrvationControlTable;
@@ -35,12 +46,7 @@ public class ReservationControlVO implements java.io.Serializable {
 	public void setReservationControlId(Integer reservationControlId) {
 		this.reservationControlId = reservationControlId;
 	}
-	public Integer getTableId() {
-		return tableId;
-	}
-	public void setTableId(Integer tableId) {
-		this.tableId = tableId;
-	}
+
 	public Date getReasrvationControlDate() {
 		return reasrvationControlDate;
 	}

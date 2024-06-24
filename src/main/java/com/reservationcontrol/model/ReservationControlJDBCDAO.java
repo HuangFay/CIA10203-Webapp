@@ -26,7 +26,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 		private static final String UPDATE = 
 			"UPDATE reservation_control set table_id=?, reservation_control_date=?,reservation_control_table=?";
 	@Override
-	public void insert(ReservationControlVO reservationControlVO) {
+	public void insert(ResVO reservationControlVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -36,7 +36,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 			con = DriverManager.getConnection(url, userid,passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 		
-			pstmt.setInt(1, reservationControlVO.getTableId());
+			pstmt.setInt(1, reservationControlVO.getTableTypeVO().getTableId());
 			pstmt.setDate(2, reservationControlVO.getReasrvationControlDate());
 			pstmt.setString(3, reservationControlVO.getReasrvationControlTable());
 			
@@ -70,7 +70,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 	
 
 	@Override
-	public void update(ReservationControlVO reservationControlVO) {
+	public void update(ResVO reservationControlVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -80,7 +80,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 			con = DriverManager.getConnection(url, userid,passwd);
 			pstmt = con.prepareStatement(UPDATE);
 		
-			pstmt.setInt(1, reservationControlVO.getTableId());
+			pstmt.setInt(1, reservationControlVO.getTableTypeVO().getTableId());
 			pstmt.setDate(2, reservationControlVO.getReasrvationControlDate());
 			pstmt.setString(3, reservationControlVO.getReasrvationControlTable());
 			
@@ -157,8 +157,8 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 	}
 
 	@Override
-	public ReservationControlVO findByPrimaryKey(Integer reservationControlId) {
-		ReservationControlVO reservationControlVO = null;
+	public ResVO findByPrimaryKey(Integer reservationControlId) {
+		ResVO reservationControlVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -175,9 +175,9 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				reservationControlVO = new ReservationControlVO();
+				reservationControlVO = new ResVO();
 				reservationControlVO.setReservationControlId(rs.getInt("reservationControlId"));
-				reservationControlVO.setTableId(rs.getInt("table_id"));
+				reservationControlVO.getTableTypeVO().setTableId(rs.getInt("table_Id"));;
 				reservationControlVO.setReasrvationControlDate(rs.getDate("reservation_control_date"));
 				reservationControlVO.setReasrvationControlTable(rs.getString("reservation_control_table"));
 				
@@ -219,9 +219,9 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 	}
 
 	@Override
-	public List<ReservationControlVO> getAll() {
-		List<ReservationControlVO> list = new ArrayList<ReservationControlVO>();
-		ReservationControlVO reservationControlVO =null;
+	public List<ResVO> getAll() {
+		List<ResVO> list = new ArrayList<ResVO>();
+		ResVO reservationControlVO =null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -235,9 +235,10 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
-				reservationControlVO = new ReservationControlVO();
+				reservationControlVO = new ResVO();
 				reservationControlVO.setReservationControlId(rs.getInt("reservationControlId"));
-				reservationControlVO.setTableId(rs.getInt("table_id"));
+				reservationControlVO.getTableTypeVO().setTableId(rs.getInt("table_id"));;
+				;
 				reservationControlVO.setReasrvationControlDate(rs.getDate("reservation_control_date"));
 				reservationControlVO.setReasrvationControlTable(rs.getString("reservation_control_table"));
 				
