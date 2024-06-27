@@ -1,4 +1,4 @@
-package com.reservationcontrol.model;
+	package com.reservationcontrol.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,3 +14,4 @@ public interface ResRepository extends JpaRepository<ResVO, Integer>{
 
 	
 }
+	

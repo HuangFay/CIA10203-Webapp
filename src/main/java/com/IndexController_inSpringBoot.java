@@ -13,17 +13,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.reservationcontrol.model.ResService;
 import com.reservationcontrol.model.ResVO;
+import com.tabletype.model.TableTypeService;
+import com.tabletype.model.TableTypeVO;
 
 
 
 //@PropertySource("classpath:application.properties") // 於https://start.spring.io建立Spring Boot專案時, application.properties文件預設已經放在我們的src/main/resources 目錄中，它會被自動檢測到
 @Controller
+
 public class IndexController_inSpringBoot {
 	
 	// @Autowired (●自動裝配)(Spring ORM 課程)
 	// 目前自動裝配了EmpService --> 供第60使用
 	@Autowired
 	ResService resSvc;
+	@Autowired
+	TableTypeService tableSvc;
 	
     // inject(注入資料) via application.properties
     @Value("${welcome.message}")
@@ -61,6 +66,14 @@ public class IndexController_inSpringBoot {
 	protected List<ResVO> referenceListData(Model model) {
 		
     	List<ResVO> list = resSvc.getAll();
+		return list;
+	}
+//   
+
+    @ModelAttribute("tableTypeListData") // for select_page.html 第135行用
+	protected List<TableTypeVO> referenceListData_TableType(Model model) {
+		model.addAttribute("tableTypeVO", new TableTypeVO()); // for select_page.html 第133行用
+		List<TableTypeVO> list = tableSvc.getAll();
 		return list;
 	}
 

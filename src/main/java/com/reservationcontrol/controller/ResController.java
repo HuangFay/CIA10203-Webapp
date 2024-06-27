@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.reservationcontrol.model.ResService;
 import com.reservationcontrol.model.ResVO;
 @Controller
-@Validated
 @RequestMapping("/res")
 public class ResController {
 	@Autowired

@@ -19,12 +19,7 @@ import com.tabletype.model.TableTypeVO;
 @Table(name = "reservation_control")
 public class ResVO implements java.io.Serializable {
 	
-	public TableTypeVO getTableTypeVO() {
-		return tableTypeVO;
-	}
-	public void setTableTypeVO(TableTypeVO tableTypeVO) {
-		this.tableTypeVO = tableTypeVO;
-	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="reservation_control_id", updatable = false, insertable = false)
@@ -59,7 +54,12 @@ public class ResVO implements java.io.Serializable {
 	public void setReasrvationControlTable(String reasrvationControlTable) {
 		this.reasrvationControlTable = reasrvationControlTable;
 	}
-	
+	public TableTypeVO getTableTypeVO() {
+		return tableTypeVO;
+	}
+	public void setTableTypeVO(TableTypeVO tableTypeVO) {
+		this.tableTypeVO = tableTypeVO;
+	}
 	
 	
 	

@@ -10,6 +10,10 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class TableTypeJNDIDAO implements TableTypeDAO_interface{
+	
+	public TableTypeJNDIDAO() {
+		
+	}
 	private static DataSource ds = null;
 	static {
 		try {
