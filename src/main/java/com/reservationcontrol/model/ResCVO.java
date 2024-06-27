@@ -17,7 +17,7 @@ import com.tabletype.model.TableTypeVO;
 
 @Entity
 @Table(name = "reservation_control")
-public class ResVO implements java.io.Serializable {
+public class ResCVO implements java.io.Serializable {
 	
 	
 	@Id

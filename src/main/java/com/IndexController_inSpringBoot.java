@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.reservationcontrol.model.ResService;
-import com.reservationcontrol.model.ResVO;
+import com.reservationcontrol.model.ResCVO;
 import com.tabletype.model.TableTypeService;
 import com.tabletype.model.TableTypeVO;
 
@@ -63,9 +63,9 @@ public class IndexController_inSpringBoot {
 	}
     
     @ModelAttribute("resListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第117 133行用
-	protected List<ResVO> referenceListData(Model model) {
+	protected List<ResCVO> referenceListData(Model model) {
 		
-    	List<ResVO> list = resSvc.getAll();
+    	List<ResCVO> list = resSvc.getAll();
 		return list;
 	}
 //   

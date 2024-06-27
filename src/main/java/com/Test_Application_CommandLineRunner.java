@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.reservationcontrol.model.ResRepository;
-import com.reservationcontrol.model.ResVO;
+import com.reservationcontrol.model.ResCVO;
 import com.tabletype.model.TableTypeVO;
 
 @SpringBootApplication

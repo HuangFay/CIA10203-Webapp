@@ -8,8 +8,8 @@ public ReservationControlServiceHibernate() {
 	dao = new ReservationControlDAOHibernate();
 }
 
-public ResVO addReservationControl(Integer tableId,Date reasrvationControlDate,String reasrvationControlTable) {
-	ResVO reservationControlVO = new ResVO();
+public ResCVO addReservationControl(Integer tableId,Date reasrvationControlDate,String reasrvationControlTable) {
+	ResCVO reservationControlVO = new ResCVO();
 	reservationControlVO.getTableTypeVO().setTableId(tableId);;
 	reservationControlVO.setReasrvationControlDate(reasrvationControlDate);
 	reservationControlVO.setReasrvationControlTable(reasrvationControlTable);

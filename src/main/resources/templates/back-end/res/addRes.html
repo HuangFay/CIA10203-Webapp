@@ -52,26 +52,13 @@
 			<input type="text" th:field="*{reasrvationControlTable}"  /><br/>
 			<!-- <span  th:if="${#fields.hasErrors('ename')}" th:errors="*{ename}" class="error" id="ename.errors"></span> -->
 			</div>
-			
-			<div>
-			<label>桌型人數:</label>
-			<input type="text" th:field="*{tableTypeVO.tableId}"  /><br/>
-			<!-- <span  th:if="${#fields.hasErrors('ename')}" th:errors="*{ename}" class="error" id="ename.errors"></span> -->
-			</div>
-			
-		<!-- 	<div>
-			<label>側一個:</label>
-			<select th:field="*{reasrvationControlDate}">
-				<option th:each="resVO : ${resListData}" th:value="${resVO.reasrvationControlDate}" th:text="${resVO.reasrvationControlDate}"></option>
-			</select>
-			<span th:if="${#fields.hasErrors('deptVO.deptno')}" th:errors="*{deptVO.deptno}" class="error" id="deptVO.deptno.errors"></span>
-			</div> -->
+		
 	
 			<div>
 			<label>桌型人數:</label>
 			<select th:field="*{tableTypeVO.tableId}">
-				<option th:each="tableTypeVO : ${tableTypeListData}" th:value="${tableTypeVO.tableId}" th:text="${tableTypeVO.tableId}"></option>
-			</select> 
+				<option th:each="tableTypeVO : ${tableTypeListData}" th:value="${tableTypeVO.tableId}" th:text="${tableTypeVO.tableType}"></option>
+			</select> 人
 			<!-- <span th:if="${#fields.hasErrors('deptVO.deptno')}" th:errors="*{deptVO.deptno}" class="error" id="deptVO.deptno.errors"></span> -->
 			</div>
 			

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.reservationcontrol.model.ResService;
-import com.reservationcontrol.model.ResVO;
+import com.reservationcontrol.model.ResCVO;
 @Controller
 @RequestMapping("/res")
 public class ResController {
@@ -26,9 +26,9 @@ public class ResController {
 		
 		/***************************2.開始查詢資料*********************************************/
 //		EmpService empSvc = new EmpService();
-		ResVO resVO = ResSvc.getOneRes(Integer.valueOf(reservationControlId));
+		ResCVO resVO = ResSvc.getOneRes(Integer.valueOf(reservationControlId));
 		
-		List<ResVO> list = ResSvc.getAll();
+		List<ResCVO> list = ResSvc.getAll();
 		model.addAttribute("resListData", list); // for select_page.html 第97 109行用
 		
 		if (resVO == null) {

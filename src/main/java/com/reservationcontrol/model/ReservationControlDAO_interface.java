@@ -3,11 +3,11 @@ package com.reservationcontrol.model;
 import java.util.*;
 
 public interface ReservationControlDAO_interface {
-	public void insert (ResVO reservationControlVO);
-	public void update(ResVO reservationControlVO);
+	public void insert (ResCVO reservationControlVO);
+	public void update(ResCVO reservationControlVO);
 	public void delete(Integer reservationControlId);
-	public ResVO findByPrimaryKey(Integer reservationControlId);
-	public List<ResVO> getAll();
+	public ResCVO findByPrimaryKey(Integer reservationControlId);
+	public List<ResCVO> getAll();
 	
 	
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.reservationcontrol.model.ResService;
-import com.reservationcontrol.model.ResVO;
+import com.reservationcontrol.model.ResCVO;
 import com.tabletype.model.TableTypeService;
 import com.tabletype.model.TableTypeVO;
 
@@ -31,12 +31,12 @@ public class ResidController {
 	
 	@GetMapping("addRes")
 	public String addRes(ModelMap model) {
-		ResVO resVO = new ResVO();
+		ResCVO resVO = new ResCVO();
 		model.addAttribute("resVO", resVO);
 		return "back-end/res/addRes";
 	}
 	@PostMapping("insert")
-	public String insert(@Valid ResVO ResVO, BindingResult result, ModelMap model
+	public String insert(@Valid ResCVO ResVO, BindingResult result, ModelMap model
 //			,@RequestParam("upFiles") MultipartFile[] parts
 					)throws IOException {
 
@@ -59,18 +59,18 @@ public class ResidController {
 		// EmpService empSvc = new EmpService();
 		ResSvc.addRes(ResVO);
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
-		List<ResVO> list = ResSvc.getAll();
+		List<ResCVO> list = ResSvc.getAll();
 		model.addAttribute("resListData", list);
 		model.addAttribute("success", "- (新增成功)");
 		return "redirect:/res/listAllRes"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 	
 	@PostMapping("getOne_For_Update")
-	public String getOne_For_Update(@RequestParam("reservationControlId") String reservationControlId, ModelMap model) {
+	public String getOne_For_Update(@RequestParam("reservationControlId") Integer reservationControlId, ModelMap model) {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		/*************************** 2.開始查詢資料 *****************************************/
 		// EmpService empSvc = new EmpService(); //autowired
-		ResVO resVO = ResSvc.getOneRes(Integer.valueOf(reservationControlId));
+		ResCVO resVO = ResSvc.getOneRes(Integer.valueOf(reservationControlId));
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("resVO", resVO);
@@ -78,8 +78,9 @@ public class ResidController {
 	}
 	
 	@PostMapping("update")
-	public String update(@Valid ResVO resVO, BindingResult result, ModelMap model,
-			@RequestParam("upFiles") MultipartFile[] parts) throws IOException {
+	public String update(@Valid ResCVO resVO, BindingResult result, ModelMap model
+//			,@RequestParam("upFiles") MultipartFile[] parts
+			) throws IOException {
 
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行

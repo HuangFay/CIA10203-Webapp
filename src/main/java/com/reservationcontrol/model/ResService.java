@@ -11,11 +11,11 @@ public class ResService {
 	@Autowired
 	ResRepository repository;
 	
-	public void addRes(ResVO resVO) {
+	public void addRes(ResCVO resVO) {
 		repository.save(resVO);
 	}
 	
-	public void updateRes(ResVO resVO) {
+	public void updateRes(ResCVO resVO) {
 		repository.save(resVO);
 	}
 	
@@ -25,13 +25,13 @@ public class ResService {
 			repository.deleteByreservationControlId(reservationControlId);
 	}
 	
-	public ResVO getOneRes(Integer reservationControlId) {
-		Optional<ResVO> optional = repository.findById(reservationControlId);
+	public ResCVO getOneRes(Integer reservationControlId) {
+		Optional<ResCVO> optional = repository.findById(reservationControlId);
 //		return optional.get();
 		return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
 	}
 	
-	public List<ResVO>getAll(){
+	public List<ResCVO>getAll(){
 		return repository.findAll();
 	}
 

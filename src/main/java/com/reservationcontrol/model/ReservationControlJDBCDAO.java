@@ -26,7 +26,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 		private static final String UPDATE = 
 			"UPDATE reservation_control set table_id=?, reservation_control_date=?,reservation_control_table=?";
 	@Override
-	public void insert(ResVO reservationControlVO) {
+	public void insert(ResCVO reservationControlVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -70,7 +70,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 	
 
 	@Override
-	public void update(ResVO reservationControlVO) {
+	public void update(ResCVO reservationControlVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -157,8 +157,8 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 	}
 
 	@Override
-	public ResVO findByPrimaryKey(Integer reservationControlId) {
-		ResVO reservationControlVO = null;
+	public ResCVO findByPrimaryKey(Integer reservationControlId) {
+		ResCVO reservationControlVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -175,7 +175,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				reservationControlVO = new ResVO();
+				reservationControlVO = new ResCVO();
 				reservationControlVO.setReservationControlId(rs.getInt("reservationControlId"));
 				reservationControlVO.getTableTypeVO().setTableId(rs.getInt("table_Id"));;
 				reservationControlVO.setReasrvationControlDate(rs.getDate("reservation_control_date"));
@@ -219,9 +219,9 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 	}
 
 	@Override
-	public List<ResVO> getAll() {
-		List<ResVO> list = new ArrayList<ResVO>();
-		ResVO reservationControlVO =null;
+	public List<ResCVO> getAll() {
+		List<ResCVO> list = new ArrayList<ResCVO>();
+		ResCVO reservationControlVO =null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -235,7 +235,7 @@ public class ReservationControlJDBCDAO implements ReservationControlDAO_interfac
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
-				reservationControlVO = new ResVO();
+				reservationControlVO = new ResCVO();
 				reservationControlVO.setReservationControlId(rs.getInt("reservationControlId"));
 				reservationControlVO.getTableTypeVO().setTableId(rs.getInt("table_id"));;
 				;

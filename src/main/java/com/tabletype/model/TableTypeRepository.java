@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.reservationcontrol.model.ResVO;
+import com.reservationcontrol.model.ResCVO;
 
 public interface TableTypeRepository extends JpaRepository<TableTypeVO, Integer>{
 	
