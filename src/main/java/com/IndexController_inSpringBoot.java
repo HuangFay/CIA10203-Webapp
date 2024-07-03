@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.reservationcontrol.model.ResService;
+import com.reservationcontrol.model.ResCService;
 import com.reservationcontrol.model.ResCVO;
+import com.restime.model.ResTimeService;
+import com.restime.model.ResTimeVO;
 import com.tabletype.model.TableTypeService;
 import com.tabletype.model.TableTypeVO;
 
@@ -26,10 +28,12 @@ public class IndexController_inSpringBoot {
 	// @Autowired (●自動裝配)(Spring ORM 課程)
 	// 目前自動裝配了EmpService --> 供第60使用
 	@Autowired
-	ResService resSvc;
+	ResCService resSvc;
 	@Autowired
 	TableTypeService tableSvc;
-	
+	@Autowired
+	ResTimeService resTimeSvc;
+
     // inject(注入資料) via application.properties
     @Value("${welcome.message}")
     private String message;
@@ -47,19 +51,19 @@ public class IndexController_inSpringBoot {
     public String indexWithParam(
             @RequestParam(name = "name", required = false, defaultValue = "") String name, Model model) {
         model.addAttribute("message", name);
-        return "back-end/res/select_page"; //view
+        return "back-end/resc/select_page"; //view
     }
     
   
-    //=========== 以下第57~62行是提供給 /src/main/resources/templates/back-end/emp/select_page.html 與 listAllEmp.html 要使用的資料 ===================   
-    @GetMapping("/res/select_page")
+   //訂位控制選擇畫面
+    @GetMapping("/resc/select_page")
 	public String select_page(Model model) {
-		return "back-end/res/select_page";
+		return "back-end/resc/select_page";
 	}
-    
-    @GetMapping("/res/listAllRes")
-	public String listAllRes(Model model) {
-		return "back-end/res/listAllRes";
+    //訂位控制顯示全部畫面
+    @GetMapping("/resc/listAllResC")
+	public String listAllResc(Model model) {
+		return "back-end/resc/listAllResC";
 	}
     
     @ModelAttribute("resListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第117 133行用
@@ -68,7 +72,11 @@ public class IndexController_inSpringBoot {
     	List<ResCVO> list = resSvc.getAll();
 		return list;
 	}
-//   
+    
+    @GetMapping("/res/listAllRes")
+  	public String listAllRes(Model model) {
+  		return "back-end/res/listAllRes";
+  	}
 
     @ModelAttribute("tableTypeListData") // for select_page.html 第135行用
 	protected List<TableTypeVO> referenceListData_TableType(Model model) {
@@ -76,5 +84,41 @@ public class IndexController_inSpringBoot {
 		List<TableTypeVO> list = tableSvc.getAll();
 		return list;
 	}
+    //訂位時段資料
+    @ModelAttribute("resTimeListData") // for select_page.html 第135行用
+	protected List<ResTimeVO> referenceListData_ResTime(Model model) {
+		model.addAttribute("resTImeVO", new ResTimeVO()); // for select_page.html 第133行用
+		List<ResTimeVO> list = resTimeSvc.getAll();
+		return list;
+	}
+    //訂位時段選擇畫面
+    @GetMapping("/restime/select_page")
+	public String select_page1(Model model) {
+		return "back-end/restime/select_page";
+	}
+    
+    //訂位按鈕跳轉mapping
+    @GetMapping("/reservation")
+    public String home() {
+        return "gpt"; // 對應的Thymeleaf模板名稱
+    }
+    //訂位時段顯示全部畫面
+    @GetMapping("/restime/listAllResTime")
+	public String listAllResTime(Model model) {
+		return "back-end/restime/listAllResTime";
+	}
+    //桌型選擇畫面
+    @GetMapping("/tabletype/select_page")
+	public String select_tabletype_page(Model model) {
+		return "back-end/tabletype/select_page";
+	}
+    //桌型顯示全部畫面
+    @GetMapping("/tabletype/listAllTableType")
+	public String listAllTableType(Model model) {
+		return "back-end/tabletype/listAllTableType2";
+	}
+    
+
+    
 
 }

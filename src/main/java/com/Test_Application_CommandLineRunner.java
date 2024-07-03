@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.reservationcontrol.model.ResRepository;
+import com.reservationcontrol.model.ResCRepository;
 import com.reservationcontrol.model.ResCVO;
 import com.tabletype.model.TableTypeVO;
 
@@ -15,7 +15,7 @@ import com.tabletype.model.TableTypeVO;
 public class Test_Application_CommandLineRunner implements CommandLineRunner {
     
 	@Autowired
-	ResRepository repository ;
+	ResCRepository repository ;
 	
 	public static void main(String[] args) {
         SpringApplication.run(Test_Application_CommandLineRunner.class);

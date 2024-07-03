@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.reservationcontrol.model.ResService;
+import com.reservationcontrol.model.ResCService;
 import com.reservationcontrol.model.ResCVO;
 @Controller
-@RequestMapping("/res")
-public class ResController {
+@RequestMapping("/resc")
+public class ResCController {
 	@Autowired
-	ResService ResSvc;
+	ResCService ResSvc;
 	@PostMapping("getOne_For_Display")
 	public String getOne_For_Display(
 		/***************************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -33,7 +33,7 @@ public class ResController {
 		
 		if (resVO == null) {
 			model.addAttribute("errorMessage", "查無資料");
-			return "back-end/res/select_page";
+			return "back-end/resc/select_page";
 		}
 		
 		/***************************3.查詢完成,準備轉交(Send the Success view)*****************/
@@ -41,7 +41,7 @@ public class ResController {
 		model.addAttribute("getOne_For_Display", "true"); // 旗標getOne_For_Display見select_page.html的第126行 -->
 		
 //		return "back-end/emp/listOneEmp";  // 查詢完成後轉交listOneEmp.html
-		return "back-end/res/select_page"; // 查詢完成後轉交select_page.html由其第128行insert listOneEmp.html內的th:fragment="listOneEmp-div
+		return "back-end/resc/select_page"; // 查詢完成後轉交select_page.html由其第128行insert listOneEmp.html內的th:fragment="listOneEmp-div
 	}
 
 	

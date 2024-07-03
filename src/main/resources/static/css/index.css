@@ -3,6 +3,7 @@
 body {
   padding-top: 8rem;
   font-weight: bold;
+  background-color: #FFFFE0; /* 淡黃色背景 */
 }
 
 .starter-template {
@@ -11,25 +12,26 @@ body {
 }
 
 h1{
-	color:red;
+	color: #FFD700; /* 金黃色 */
 }
 
 h2{
-	color:blue;
+	color: #FFA500; /* 橙黃色 */
 	padding: 0rem 1.0rem 0rem 0rem;
 }
 
 .navbar-brand{
   font-size: 25px;
+  color: #FFD700; /* 金黃色 */
 }
 
 a:hover, a:active {
-	color: red;
+	color: #FFD700; /* 金黃色 */
 	font-weight: bold;
 }
 
 .index-green {
 	font-size: 35px;
-	color: green;
+	color: #FFD700; /* 金黃色 */
 	font-weight: bold;
 }

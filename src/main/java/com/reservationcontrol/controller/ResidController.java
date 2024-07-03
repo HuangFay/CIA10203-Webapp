@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.reservationcontrol.model.ResService;
+import com.reservationcontrol.model.ResCService;
 import com.reservationcontrol.model.ResCVO;
 import com.tabletype.model.TableTypeService;
 import com.tabletype.model.TableTypeVO;
 
 @Controller
-@RequestMapping("/res")
+@RequestMapping("/resc")
 public class ResidController {
 	@Autowired
-	ResService ResSvc;
+	ResCService ResSvc;
 	@Autowired
 	TableTypeService TableSvc;
 	
@@ -33,7 +33,7 @@ public class ResidController {
 	public String addRes(ModelMap model) {
 		ResCVO resVO = new ResCVO();
 		model.addAttribute("resVO", resVO);
-		return "back-end/res/addRes";
+		return "back-end/resc/addRes";
 	}
 	@PostMapping("insert")
 	public String insert(@Valid ResCVO ResVO, BindingResult result, ModelMap model
@@ -62,7 +62,7 @@ public class ResidController {
 		List<ResCVO> list = ResSvc.getAll();
 		model.addAttribute("resListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/res/listAllRes"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		return "redirect:/resc/listAllRes"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 	
 	@PostMapping("getOne_For_Update")
@@ -74,7 +74,7 @@ public class ResidController {
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("resVO", resVO);
-		return "back-end/res/update_res_input"; // 查詢完成後轉交update_emp_input.html
+		return "back-end/resc/update_res_input"; // 查詢完成後轉交update_emp_input.html
 	}
 	
 	@PostMapping("update")
@@ -107,7 +107,7 @@ public class ResidController {
 		model.addAttribute("success", "- (修改成功)");
 		resVO = ResSvc.getOneRes(Integer.valueOf(resVO.getReservationControlId()));
 		model.addAttribute("resVO", resVO);
-		return "back-end/res/listOneRes"; // 修改成功後轉交listOneEmp.html
+		return "back-end/resc/listOneRes"; // 修改成功後轉交listOneEmp.html
 	}
 	@ModelAttribute("tableTypeListData")
 	protected List<TableTypeVO> referenceListData() {

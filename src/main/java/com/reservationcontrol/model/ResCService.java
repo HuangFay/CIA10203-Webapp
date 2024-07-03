@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("resService")
-public class ResService {	
+@Service("resCService")
+public class ResCService {	
 	@Autowired
-	ResRepository repository;
+	ResCRepository repository;
 	
 	public void addRes(ResCVO resVO) {
 		repository.save(resVO);
