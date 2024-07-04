@@ -118,6 +118,7 @@ public class IndexController_inSpringBoot {
 		return "back-end/tabletype/listAllTableType2";
 	}
     
+    
 
     
 

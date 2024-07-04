@@ -1,18 +1,11 @@
 
 
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>全部桌型測試頁面</title>
+<title>全部桌型</title>
 
 <head th:insert="~{/back-end/resc/included-fragment}"></head>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
@@ -55,13 +48,15 @@
 body {
 	margin: 1rem 12rem 2rem 12rem;
 }
+
 </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>所有桌型</h2>
-		 <h3><a class="navbar-brand" th:href="@{/tabletype/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+		 <h3><a class="navbar-brand" th:href="@{/tabletype/select_page}"><img th:src="@{/images/try2.gif}" style="width: 50px; height: 50px;">
+		 回查詢頁<label th:text="${success}"></label></a></h3></div>
 </nav>
 
 <table id="example" class="display" style="width: 100%">
