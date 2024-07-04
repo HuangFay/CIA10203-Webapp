@@ -151,14 +151,18 @@ button {
   position: relative;
   width: 733px;
   height: 144px;
-  color: #828282;
+  color:rgba(255, 165, 0,1);
   font-family: Inter, var(--default-font-family);
   font-size: 24px;
   font-weight: 400;
   line-height: 36px;
   text-align: center;
   z-index: 2;
+  background-color: rgba(130,99, 71, 0.5); /* Light grey background color */
+  padding: 20px;
+  border-radius: 5px;
 }
+
 .cards {
   display: flex;
   align-items: flex-start;
@@ -652,3 +656,4 @@ button {
     .dropdown:hover .dropbtn {
       background-color: #3e8e41;
     }
+    

@@ -24,7 +24,9 @@ import com.tabletype.model.TableTypeVO;
 @Controller
 
 public class IndexController_inSpringBoot {
-	
+	public static void main(String[] args) {
+		
+	}
 	// @Autowired (●自動裝配)(Spring ORM 課程)
 	// 目前自動裝配了EmpService --> 供第60使用
 	@Autowired
@@ -100,7 +102,7 @@ public class IndexController_inSpringBoot {
     //訂位按鈕跳轉mapping
     @GetMapping("/reservation")
     public String home() {
-        return "gpt"; // 對應的Thymeleaf模板名稱
+        return "back-end/res/addRes"; // 對應的Thymeleaf模板名稱
     }
     //訂位時段顯示全部畫面
     @GetMapping("/restime/listAllResTime")
@@ -120,6 +122,14 @@ public class IndexController_inSpringBoot {
     
     
 
+  //後台測試首頁畫面
+    @GetMapping("/backIndex")
+	public String backIndex(Model model) {
+		return "backIndex";
+	}
     
-
+    @GetMapping("/index2")
+   	public String index2(Model model) {
+   		return "index2";
+   	}
 }
