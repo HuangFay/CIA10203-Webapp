@@ -25,18 +25,18 @@ import com.tabletype.model.TableTypeVO;
 @RequestMapping("/resc")
 public class ResidController {
 	@Autowired
-	ResCService ResSvc;
+	ResCService ResCSvc;
 	@Autowired
 	TableTypeService TableSvc;
 	
 	@GetMapping("addRes")
 	public String addRes(ModelMap model) {
-		ResCVO resVO = new ResCVO();
-		model.addAttribute("resVO", resVO);
+		ResCVO resCVO = new ResCVO();
+		model.addAttribute("resCVO", resCVO);
 		return "back-end/resc/addRes";
 	}
 	@PostMapping("insert")
-	public String insert(@Valid ResCVO ResVO, BindingResult result, ModelMap model
+	public String insert(@Valid ResCVO resCVO, BindingResult result, ModelMap model
 //			,@RequestParam("upFiles") MultipartFile[] parts
 					)throws IOException {
 
@@ -57,12 +57,12 @@ public class ResidController {
 //		}
 		/*************************** 2.開始新增資料 *****************************************/
 		// EmpService empSvc = new EmpService();
-		ResSvc.addRes(ResVO);
+		ResCSvc.addRes(resCVO);
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
-		List<ResCVO> list = ResSvc.getAll();
-		model.addAttribute("resListData", list);
+		List<ResCVO> list = ResCSvc.getAll();
+		model.addAttribute("resCListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/resc/listAllRes"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		return "redirect:/resc/listAllResC"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 	
 	@PostMapping("getOne_For_Update")
@@ -70,15 +70,15 @@ public class ResidController {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		/*************************** 2.開始查詢資料 *****************************************/
 		// EmpService empSvc = new EmpService(); //autowired
-		ResCVO resVO = ResSvc.getOneRes(Integer.valueOf(reservationControlId));
+		ResCVO resCVO = ResCSvc.getOneRes(Integer.valueOf(reservationControlId));
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
-		model.addAttribute("resVO", resVO);
+		model.addAttribute("resCVO", resCVO);
 		return "back-end/resc/update_res_input"; // 查詢完成後轉交update_emp_input.html
 	}
 	
 	@PostMapping("update")
-	public String update(@Valid ResCVO resVO, BindingResult result, ModelMap model
+	public String update(@Valid ResCVO resCVO, BindingResult result, ModelMap model
 //			,@RequestParam("upFiles") MultipartFile[] parts
 			) throws IOException {
 
@@ -101,12 +101,12 @@ public class ResidController {
 //		}
 		/*************************** 2.開始修改資料 *****************************************/
 		// EmpService empSvc = new EmpService();
-		ResSvc.updateRes(resVO);
+		ResCSvc.updateRes(resCVO);
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("success", "- (修改成功)");
-		resVO = ResSvc.getOneRes(Integer.valueOf(resVO.getReservationControlId()));
-		model.addAttribute("resVO", resVO);
+		resCVO = ResCSvc.getOneRes(Integer.valueOf(resCVO.getReservationControlId()));
+		model.addAttribute("resCVO", resCVO);
 		return "back-end/resc/listOneRes"; // 修改成功後轉交listOneEmp.html
 	}
 	@ModelAttribute("tableTypeListData")

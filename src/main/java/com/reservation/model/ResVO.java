@@ -3,12 +3,14 @@ package com.reservation.model;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.mem.model.MemVO;
@@ -22,26 +24,32 @@ public class ResVO implements java.io.Serializable {
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name="reservation_id", updatable = false, insertable = false)
 		private Integer reservationId;
+		@ManyToOne
 		@JoinColumn(name="mem_no")
-		private MemVO memNo;
+		private MemVO memVO;
 		@Column(name="reservation_eatdate")
 		private Date reservationEatdate;
 		@Column(name="reservation_num")
 		private Integer reservationNum;
+		@ManyToOne
 		@JoinColumn(name="reservation_time_id")
 		private ResTimeVO resTimeVO;
 		@Column(name="reservation_date")
 		private LocalDateTime reservationDate;
+		@ManyToOne
 		@JoinColumn(name="table_id")
-		private TableTypeVO TableTypeVO;
+		private TableTypeVO tableTypeVO;
 		@Column(name="reservation_table")
 		private Integer reservationTable;
+		@Column(name="reservation_status")
+		private Byte reservationStatus =0;
 		
-//		電話與備註
-//		@Column(name="reservation_phone")
-//		private String reservationPhone;
-//		@Column(name="reservation_note")
-//		private String reservationNote;
+		
+		//		電話與備註
+		@Column(name="reservation_phone")
+		private String reservationPhone;
+		@Column(name="reservation_note")
+		private String reservationNote;
 		
 		
 		
@@ -51,11 +59,12 @@ public class ResVO implements java.io.Serializable {
 		public void setReservationId(Integer reservationId) {
 			this.reservationId = reservationId;
 		}
-		public MemVO getMemNo() {
-			return memNo;
+		
+		public MemVO getMemVO() {
+			return memVO;
 		}
-		public void setMemNo(MemVO memNo) {
-			this.memNo = memNo;
+		public void setMemVO(MemVO memVO) {
+			this.memVO = memVO;
 		}
 		public Date getReservationEatdate() {
 			return reservationEatdate;
@@ -82,10 +91,10 @@ public class ResVO implements java.io.Serializable {
 			this.reservationDate = reservationDate;
 		}
 		public TableTypeVO getTableTypeVO() {
-			return TableTypeVO;
+			return tableTypeVO;
 		}
 		public void setTableTypeVO(TableTypeVO tableTypeVO) {
-			TableTypeVO = tableTypeVO;
+			this.tableTypeVO = tableTypeVO;
 		}
 		public Integer getReservationTable() {
 			return reservationTable;
@@ -93,22 +102,27 @@ public class ResVO implements java.io.Serializable {
 		public void setReservationTable(Integer reservationTable) {
 			this.reservationTable = reservationTable;
 		}
+		public Byte getReservationStatus() {
+			return reservationStatus;
+		}
+		public void setReservationStatus(Byte reservationStatus) {
+			this.reservationStatus = reservationStatus;
+		}
 		
 		
 		
-		
-//		public String getReservationPhone() {
-//			return reservationPhone;
-//		}
-//		public void setReservationPhone(String reservationPhone) {
-//			this.reservationPhone = reservationPhone;
-//		}
-//		public String getReservationNote() {
-//			return reservationNote;
-//		}
-//		public void setReservationNote(String reservationNote) {
-//			this.reservationNote = reservationNote;
-//		}
+		public String getReservationPhone() {
+			return reservationPhone;
+		}
+		public void setReservationPhone(String reservationPhone) {
+			this.reservationPhone = reservationPhone;
+		}
+		public String getReservationNote() {
+			return reservationNote;
+		}
+		public void setReservationNote(String reservationNote) {
+			this.reservationNote = reservationNote;
+		}
 		
 		
 		

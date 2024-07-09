@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -34,10 +25,10 @@
 
 	<div align="center" th:fragment="listOneRes-div"> <!-- 此div被select_page.html第128行insert用 -->
 		<h3><span>查詢結果 :</span></h3>
-		<span>桌型控制編號:</span><span th:text="${resVO.reservationControlId}"></span><br/>
-		<span>營業日期:</span><span th:text="${resVO.reasrvationControlDate}"></span><br/>
-		<span>每桌訂位狀況:</span><span th:text="${resVO.reasrvationControlTable}"></span><br/>
-		<span>桌型編號:</span><span th:text="${resVO.tableTypeVO.tableId}"></span><br/>
+		<span>桌型控制編號:</span><span th:text="${resCVO.reservationControlId}"></span><br/>
+		<span>營業日期:</span><span th:text="${resCVO.reasrvationControlDate}"></span><br/>
+		<span>每桌訂位狀況:</span><span th:text="${resCVO.reasrvationControlTable}"></span><br/>
+		<span>桌型人數:</span><span th:text="${resCVO.tableTypeVO.tableType}"></span><br/>
 		
 	</div>
 

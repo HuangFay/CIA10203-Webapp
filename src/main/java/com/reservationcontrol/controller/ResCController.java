@@ -26,18 +26,18 @@ public class ResCController {
 		
 		/***************************2.開始查詢資料*********************************************/
 //		EmpService empSvc = new EmpService();
-		ResCVO resVO = ResSvc.getOneRes(Integer.valueOf(reservationControlId));
+		ResCVO resCVO = ResSvc.getOneRes(Integer.valueOf(reservationControlId));
 		
 		List<ResCVO> list = ResSvc.getAll();
-		model.addAttribute("resListData", list); // for select_page.html 第97 109行用
+		model.addAttribute("resCListData", list); // for select_page.html 第97 109行用
 		
-		if (resVO == null) {
+		if (resCVO == null) {
 			model.addAttribute("errorMessage", "查無資料");
 			return "back-end/resc/select_page";
 		}
 		
 		/***************************3.查詢完成,準備轉交(Send the Success view)*****************/
-		model.addAttribute("resVO", resVO);
+		model.addAttribute("resCVO", resCVO);
 		model.addAttribute("getOne_For_Display", "true"); // 旗標getOne_For_Display見select_page.html的第126行 -->
 		
 //		return "back-end/emp/listOneEmp";  // 查詢完成後轉交listOneEmp.html

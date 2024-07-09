@@ -85,7 +85,7 @@
 		<li><form method="post" th:action="@{getOne_For_Display}">
 				選擇桌型控制編號:
 				<select name="reservationControlId">
-				     <option th:each="resVO : ${resListData}" th:value="${resVO.reservationControlId}" th:text="${resVO.reservationControlId}" />
+				     <option th:each="resCVO : ${resCListData}" th:value="${resCVO.reservationControlId}" th:text="${resCVO.reservationControlId}" />
 			    </select>
 				<input type="submit" value="送出">
 			</form><br>
@@ -101,7 +101,7 @@
 	
       <h4><span>桌型管理</span></h4>
 	  <ul>
-		  <li><h5><a href='addRes'>Add</a> a new Res.</h5></li>
+		  <li><h5><a href='addRes'>Add</a> a new ResC.</h5></li>
 	  </ul>
 	</div>
     

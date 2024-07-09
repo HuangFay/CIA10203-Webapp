@@ -23,6 +23,8 @@ public class ResService {
 		Optional<ResVO> optional=repository.findById(reservvationId);
 		return optional.orElse(null);
 	}
+	
+	
 	public List<ResVO>getAll(){
 		return repository.findAll();
 	}

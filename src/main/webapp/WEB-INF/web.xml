@@ -8,7 +8,7 @@
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.xhtml</welcome-file>
 		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
+		
 	</welcome-file-list>
 	
 	 
@@ -17,9 +17,5 @@
     <servlet-name>TableTypeServlet</servlet-name>
     <servlet-class>com.tabletype.controller.TableTypeServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>TableTypeServlet</servlet-name>
-    <url-pattern>/tabletype/tabletype.do</url-pattern>
-  </servlet-mapping>
-	
+ 
 </web-app>

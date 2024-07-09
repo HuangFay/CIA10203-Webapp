@@ -60,8 +60,8 @@ public class MemService {
 		
 		
 		//=================================================================
-		public byte[] getMemberImage(Integer memberId) {
-	        MemVO memVO = repository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
-	        return memVO.getUpFiles(); // 返回圖片數據
-	    }
+//		public byte[] getMemberImage(Integer memberId) {
+//	        MemVO memVO = repository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
+//	        return memVO.getUpFiles(); // 返回圖片數據
+//	    }
 }

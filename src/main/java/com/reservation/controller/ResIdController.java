@@ -1,6 +1,7 @@
 package com.reservation.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,15 +11,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.mem.model.MemService;
+import com.mem.model.MemVO;
 import com.reservation.model.ResService;
 import com.reservation.model.ResVO;
+import com.restime.model.ResTimeService;
 import com.restime.model.ResTimeVO;
+import com.tabletype.model.TableTypeService;
+import com.tabletype.model.TableTypeVO;
 
 @Controller
 @RequestMapping("/res")
@@ -27,7 +31,10 @@ public class ResIdController {
 	ResService ResSvc;
 	@Autowired
 	MemService MemSvc;
-	
+	@Autowired
+	ResTimeService ResTimeSvc;
+	@Autowired
+	TableTypeService TableTypeSvc;
 	
 	@GetMapping("addRes")
 	public String addEmp(ModelMap model) {
@@ -37,10 +44,14 @@ public class ResIdController {
 	}
 	
 	
-	@GetMapping("insert")
+	@PostMapping("insert")
 	public String insert(@Valid ResVO resVO, BindingResult result, ModelMap model) throws IOException{
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		
+		resVO.setReservationDate(LocalDateTime.now());
 	
+		
+		
 		/*************************** 2.開始新增資料 *****************************************/
 		// EmpService empSvc = new EmpService();
 		ResSvc.addRes(resVO);
@@ -48,12 +59,31 @@ public class ResIdController {
 		List<ResVO> list = ResSvc.getAll();
 		model.addAttribute("resListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/resc/listAllRes"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		return "redirect:/res/listAllRes"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	
 		
 		
 	}
 	
+	@ModelAttribute("memListData")
+	protected List<MemVO> referenceListData() {
+		// DeptService deptSvc = new DeptService();
+		List<MemVO> list = MemSvc.getAll();
+		return list;
+	}
 	
+	@ModelAttribute("resTimeListData")
+	protected List<ResTimeVO> resTimeListData() {
+		// DeptService deptSvc = new DeptService();
+		List<ResTimeVO> list = ResTimeSvc.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("tableTypeListData")
+	protected List<TableTypeVO> tabelTypeListData() {
+		// DeptService deptSvc = new DeptService();
+		List<TableTypeVO> list = TableTypeSvc.getAll();
+		return list;
+	}
 	
 }
