@@ -82,6 +82,7 @@ public class IndexController_inSpringBoot {
     
     @GetMapping("/res/listAllRes")
   	public String listAllRes(Model model) {
+    	
   		return "back-end/res/listAllRes";
   	}
 
