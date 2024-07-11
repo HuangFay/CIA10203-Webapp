@@ -7,23 +7,18 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
 import com.reservation.model.ResService;
 import com.reservation.model.ResVO;
-import com.reservationcontrol.model.ResCService;
 import com.restime.model.ResTimeService;
 import com.restime.model.ResTimeVO;
 import com.tabletype.model.TableTypeService;
@@ -40,8 +35,6 @@ public class ResIdController {
 	ResTimeService ResTimeSvc;
 	@Autowired
 	TableTypeService TableTypeSvc;
-	@Autowired
-	ResCService ResCSvc;
 	
 	@GetMapping("addRes")
 	public String addEmp(ModelMap model) {
@@ -92,32 +85,5 @@ public class ResIdController {
 		List<TableTypeVO> list = TableTypeSvc.getAll();
 		return list;
 	}
-	//座位控制============================================
-	@PostMapping
-    public ResponseEntity<String> createReservation(@RequestBody ResVO resVO) {
-        boolean success = ResService.createReservation(resVO);
-        if (success) {
-            return ResponseEntity.ok("訂位成功");
-        } else {
-            return ResponseEntity.status(400).body("訂位失敗，座位不足");
-        }
-    }
-
-    @GetMapping
-    public ResponseEntity<List<ResVO>> getAllReservations() {
-        List<ResVO> reservations = reservationService.getAllReservations();
-        return ResponseEntity.ok(reservations);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> cancelReservation(@PathVariable Long id) {
-        boolean success = reservationService.cancelReservation(id);
-        if (success) {
-            return ResponseEntity.ok("取消訂位成功");
-        } else {
-            return ResponseEntity.status(400).body("取消訂位失敗");
-        }
-    }
-}
 	
 }
