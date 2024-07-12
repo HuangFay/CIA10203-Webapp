@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mem.model.MemService;
@@ -146,4 +147,17 @@ public class IndexController_inSpringBoot {
 	public String resselect_page(Model model) {
 		return "back-end/res/select_page";
 	}
+    
+    
+    @GetMapping("/res/try")
+   	public String reelect_pae(Model model) {
+   		return "/back-end/res/try";
+   	}
+    
+    //訂位功能選擇畫面
+    @PostMapping("/back-end/try")
+	public String reelect_page(Model model) {
+		return "/back-end/res/try";
+	}
+   
 }

@@ -160,8 +160,8 @@
         <th:block th:each="resCVO : ${resCListData}">
             <tr>
                 <td th:text="${resCVO.reservationControlId}"></td>
-                <td th:text="${resCVO.reasrvationControlDate}"></td>
-                <td th:text="${resCVO.reasrvationControlTable}"></td>
+                <td th:text="${resCVO.reservationControlDate}"></td>
+                <td th:text="${resCVO.reservationControlTable}"></td>
                 <td th:text="${resCVO.tableTypeVO.tableId}"></td>
                 <td>
                     <form method="post" th:action="@{/resc/getOne_For_Update}" style="margin-bottom: 0px;">
